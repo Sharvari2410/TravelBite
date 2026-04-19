@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TravelBite - Plan city trips around food, culture, and hidden gems." />
+    <title>TravelBite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/index-Bd18jY7U.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cu_IiI_c.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div style="padding:20px;font-family:Arial,sans-serif;color:#991b1b;">
+        JavaScript is required to run TravelBite.
+      </div>
+    </noscript>
+
+    <script>
+      function showBootError(message) {
+        const root = document.getElementById("root");
+        if (!root) return;
+        root.innerHTML = `
+          <div style="max-width:980px;margin:24px auto;background:#fff;border:1px solid #fed7aa;border-radius:12px;padding:16px;font-family:Inter,Arial,sans-serif;">
+            <h2 style="margin:0 0 10px;color:#991b1b;">TravelBite failed to render</h2>
+            <pre style="white-space:pre-wrap;margin:0;color:#7f1d1d;">${String(message)}</pre>
+          </div>
+        `;
+      }
+
+      window.addEventListener("error", (event) => {
+        showBootError(event.error?.stack || event.message || "Unknown script error");
+      });
+
+      window.addEventListener("unhandledrejection", (event) => {
+        showBootError(event.reason?.stack || event.reason || "Unhandled promise rejection");
+      });
+    </script>
+
+  </body>
+</html>

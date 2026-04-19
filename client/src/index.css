@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", "Trebuchet MS", sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 194, 122, 0.42), transparent 28%),
+    radial-gradient(circle at 88% 16%, rgba(255, 142, 89, 0.2), transparent 32%),
+    linear-gradient(180deg, #fff8ef 0%, #fffdf9 45%, #fff8f0 100%);
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.bg-site {
+  background-image:
+    radial-gradient(circle at 8% 35%, rgba(254, 207, 146, 0.2), transparent 25%),
+    radial-gradient(circle at 88% 62%, rgba(193, 87, 62, 0.12), transparent 28%);
+}
+
+.hero-shell {
+  border: 1px solid #ffd9b1;
+  border-radius: 28px;
+  padding: 2.4rem;
+  background:
+    linear-gradient(125deg, rgba(255, 250, 242, 0.98), rgba(255, 241, 221, 0.96)),
+    url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1500&q=80") center/cover;
+  background-blend-mode: lighten;
+  box-shadow: 0 18px 50px rgba(171, 94, 63, 0.16);
+  animation: rise 0.6s ease;
+}
+
+.glass-panel {
+  border: 1px solid #ffe2c0;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+}
+
+.section-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.btn-primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-radius: 0.95rem;
+  padding: 0.74rem 1.22rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #ff8c42, #cc4d2f 78%);
+  box-shadow: 0 10px 24px rgba(193, 87, 62, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 26px rgba(193, 87, 62, 0.34);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  border: 1px solid #ffd5aa;
+  background: linear-gradient(180deg, #fffaf3, #fff1df);
+  color: #28150f;
+  padding: 0.58rem 0.9rem;
+  font-weight: 700;
+}
+
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(70, 37, 23, 0.16);
+}
+
+.fade-in {
+  animation: rise 0.6s ease;
+}
+
+/* Leaflet + Tailwind compatibility fixes */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-container img,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  max-width: none !important;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-shell {
+    padding: 1.35rem;
+    border-radius: 20px;
+  }
+}
