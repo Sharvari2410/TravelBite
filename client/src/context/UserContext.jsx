@@ -3,6 +3,7 @@ import React, { createContext, useCallback, useContext, useMemo, useState } from
 const USERS_KEY = "travelbite-users";
 const SESSION_KEY = "travelbite-session";
 const MODE_KEY = "travelbite-mode";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const UserContext = createContext({
   mode: "balanced",
@@ -11,6 +12,7 @@ const UserContext = createContext({
   isAuthenticated: false,
   login: async () => ({ ok: false, message: "Unavailable" }),
   signup: async () => ({ ok: false, message: "Unavailable" }),
+  googleSignIn: async () => ({ ok: false, message: "Unavailable" }),
   logout: () => {}
 });
 
@@ -107,6 +109,43 @@ export function UserProvider({ children }) {
     [users]
   );
 
+  const googleSignIn = useCallback(
+    async (token) => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/auth/google`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          return { ok: false, message: data.error || 'Google sign-in failed' };
+        }
+
+        const sessionUser = {
+          id: data.user.id,
+          name: data.user.full_name,
+          email: data.user.email,
+          avatar: data.user.avatar_url,
+          authProvider: 'google'
+        };
+
+        setCurrentUser(sessionUser);
+        writeStorage(SESSION_KEY, sessionUser);
+
+        return { ok: true, message: 'Google sign-in successful', user: sessionUser };
+      } catch (error) {
+        console.error('Google sign-in error:', error);
+        return { ok: false, message: 'Network error occurred' };
+      }
+    },
+    []
+  );
+
   const logout = useCallback(() => {
     setCurrentUser(null);
     try {
@@ -125,9 +164,10 @@ export function UserProvider({ children }) {
       isAuthenticated: Boolean(currentUser),
       login,
       signup,
+      googleSignIn,
       logout
     }),
-    [mode, setMode, users, currentUser, login, signup, logout]
+    [mode, setMode, users, currentUser, login, signup, googleSignIn, logout]
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
